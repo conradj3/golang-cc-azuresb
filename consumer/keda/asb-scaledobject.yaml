@@ -1,0 +1,17 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-service-bus-queue-consumer
+spec:
+  scaleTargetRef:
+    name: <your-deployment-name>  # name of the Kubernetes deployment to scale
+  minReplicaCount: 1             # Optional. Default: 0
+  maxReplicaCount: 100           # Optional. Default: 100
+  triggers:
+  - type: azure-servicebus
+    metadata:
+      # Required: connection string of Azure Service Bus
+      connection: SERVICEBUS_CONNECTIONSTRING_FROM_ENV
+      queueName: <your-queue-name>
+      # Required: queue length target
+      messageCount: "5"
