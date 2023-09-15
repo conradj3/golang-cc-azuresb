@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-consumer-app
+  namespace: sbx-app-keda-example
+  labels:
+    app: go-consumer-app
+spec:
+  selector:
+    matchLabels:
+      app: go-consumer-app
+  template:
+    metadata:
+      labels:
+        app: go-consumer-app
+    spec:
+      containers:
+        - name: go-consumer-app
+          image: github.com/conradj/artifact/keda/consumer:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 80
+          env:
+            - name: sbConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: keda-sb-queue-secret
+                  key: sbConnectionString
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-consumer-app
+  namespace: sbx-app-keda-example
+spec:
+  selector:
+    app: go-consumer-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

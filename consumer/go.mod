@@ -2,7 +2,10 @@ module github.com/conradj3/golang-cc-consumer
 
 go 1.17
 
-require github.com/Azure/azure-service-bus-go v0.11.1
+require (
+	github.com/Azure/azure-service-bus-go v0.11.1
+	github.com/joho/godotenv v1.5.1
+)
 
 require (
 	github.com/Azure/azure-amqp-common-go/v3 v3.2.0 // indirect
@@ -16,7 +19,6 @@ require (
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
 	github.com/devigned/tab v0.1.1 // indirect
 	github.com/form3tech-oss/jwt-go v3.2.2+incompatible // indirect
-	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/klauspost/compress v1.10.3 // indirect
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect

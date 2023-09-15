@@ -1,0 +1,21 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-servicebus-queue-scaledobject
+  namespace: sbx-app-keda-example
+  labels:
+    app: go-consumer-app
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: go-consumer-app
+  pollingInterval: 10
+  cooldownPeriod: 30
+  minReplicaCount: 0
+  maxReplicaCount: 10
+  triggers:
+    - type: azure-servicebus
+      metadata:
+        queueName: "keda-queue"
+        messageCount: "5"
+        connectionFromEnv: sbConnectionString
