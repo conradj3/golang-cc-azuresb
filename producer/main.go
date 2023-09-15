@@ -39,6 +39,16 @@ func main() {
 
 }
 
+// createMessagesHandler is an HTTP handler function that receives a POST request to create messages.
+// It first decodes the request body into a MessageRequest struct.
+// If the request body is invalid, it responds with a 400 Bad Request status.
+// It then establishes a connection to the Azure Service Bus namespace using a connection string.
+// If there's an error creating the Service Bus client, it responds with a 500 Internal Server Error status.
+// It also establishes a queue connection to the Azure Service Bus namespace.
+// If there's an error creating the queue sender, it responds with a 500 Internal Server Error status.
+// It then processes the messages by sending them to the queue.
+// If there's an error sending a message, it responds with a 500 Internal Server Error status.
+// If all messages are sent successfully, it responds with a success message indicating the number of messages sent.
 func createMessagesHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("received request to create messages, createMessagesHandler")
 	decoder := json.NewDecoder(r.Body)
@@ -85,9 +95,6 @@ func createMessagesHandler(w http.ResponseWriter, r *http.Request) {
 // If no message is received within a specified timeout, it breaks the loop and ends the message clearing process.
 // If any error occurs during these operations, it returns a 500 error and logs the error.
 // If all messages are successfully cleared, it sends a success message.
-func clearMessagesHandler(w http.ResponseWriter, r *http.Request) {
-	// ...
-}
 func clearMessagesHandler(w http.ResponseWriter, r *http.Request) {
 	ns, err := servicebus.NewNamespace(servicebus.NamespaceWithConnectionString(connStr))
 	if err != nil {
