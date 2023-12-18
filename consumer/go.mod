@@ -22,6 +22,6 @@ require (
 	github.com/klauspost/compress v1.10.3 // indirect
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0 // indirect
+	golang.org/x/crypto v0.17.0 // indirect
 	nhooyr.io/websocket v1.8.6 // indirect
 )
